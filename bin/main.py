@@ -1,28 +1,21 @@
-from os import scandir
-from os.path import isfile
-
-
-def get_files(path):
-    try:
-        if path == "":
-            path = "."
-        return [file.path for file in scandir(path) if isfile(file.path)]
-    except FileNotFoundError:
-        print("Input a correct path")
+from utils import get_files
 
 
 def main():
-    get_files(input("Enter folder's location: ").strip())
-    files = get_files()
-    old_string = input('Enter the characters to be replaced: ')
-    new_string = input('Enter the characters to replace with: ')
+    print(
+        "This script finds a string of characters in a batch of files\nand replace it with a new one"
+    )
+    files = get_files(input("Enter folder's location: ").strip())
+    old_string = input("Enter the characters to be replaced: ")
+    new_string = input("Enter the characters to replace with: ")
     for file in files:
-        txt =""
-        with open(file, 'rt') as f:
+        txt = ""
+        with open(file, "rt") as f:
             txt = f.read()
             txt = txt.replace(old_string, new_string)
-        with open(file, 'wt') as f:
+        with open(file, "wt") as f:
             f.write(txt)
+
 
 if __name__ == "__main__":
     main()
